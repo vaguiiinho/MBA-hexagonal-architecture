@@ -1,19 +1,15 @@
 package br.com.fullcycle.hexagonal.graphql;
 
-import java.net.URI;
 import java.util.Objects;
 
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
-import br.com.fullcycle.hexagonal.application.exceptions.ValidationException;
 import br.com.fullcycle.hexagonal.application.usecases.CreateCustomerUseCase;
-import br.com.fullcycle.hexagonal.application.usecases.CreateCustomerUseCase.Output;
+import br.com.fullcycle.hexagonal.application.usecases.GetCustomerByIdUseCase;
 import br.com.fullcycle.hexagonal.dtos.CustomerDTO;
-import br.com.fullcycle.hexagonal.models.Customer;
 import br.com.fullcycle.hexagonal.services.CustomerService;
 
 @Controller
@@ -25,16 +21,15 @@ public class CustomerResolver {
     }
 
     @MutationMapping
-    public Output createCustomer(@Argument CustomerDTO input) {
+    public CreateCustomerUseCase.Output createCustomer(@Argument CustomerDTO input) {
         final var useCase = new CreateCustomerUseCase(customerService);
         return useCase.execute(new CreateCustomerUseCase.Input(input.getCpf(), input.getEmail(), input.getName()));
     }
 
     @QueryMapping
-    public CustomerDTO customerOfId(@Argument Long id) {
-        return customerService.findById(id)
-                .map(CustomerDTO::new)
-                .orElse(null);
+    public GetCustomerByIdUseCase.Output customerOfId(@Argument Long id) {
+        final var useCase = new GetCustomerByIdUseCase(customerService);
+        return useCase.execute(new GetCustomerByIdUseCase.Input(id)).orElse(null);
     }
 
 }
