@@ -59,7 +59,7 @@ public class EventController {
     public ResponseEntity<?> subscribe(@PathVariable Long id, @RequestBody SubscribeDTO dto) {
         try {
             final var useCase = new SubscribeCustomerToEvent(customerService, eventService);
-            final var output = useCase.execute(new SubscribeCustomerToEvent.Input(id, dto.getCustomerId()));
+            final var output = useCase.execute(new SubscribeCustomerToEvent.Input(dto.getCustomerId(), id));
             return ResponseEntity.ok(output);
         } catch (ValidationException ex) {
             return ResponseEntity.unprocessableEntity().body(ex.getMessage());
