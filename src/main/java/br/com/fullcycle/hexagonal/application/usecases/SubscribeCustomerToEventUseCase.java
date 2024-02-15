@@ -10,13 +10,13 @@ import br.com.fullcycle.hexagonal.infrastructure.models.TicketStatus;
 import br.com.fullcycle.hexagonal.infrastructure.services.CustomerService;
 import br.com.fullcycle.hexagonal.infrastructure.services.EventService;
 
-public class SubscribeCustomerToEvent
-        extends UseCase<SubscribeCustomerToEvent.Input, SubscribeCustomerToEvent.Output> {
+public class SubscribeCustomerToEventUseCase
+        extends UseCase<SubscribeCustomerToEventUseCase.Input, SubscribeCustomerToEventUseCase.Output> {
 
     private final CustomerService customerService;
     private final EventService eventService;
 
-    public SubscribeCustomerToEvent(final CustomerService customerService, final EventService eventService) {
+    public SubscribeCustomerToEventUseCase(final CustomerService customerService, final EventService eventService) {
         this.customerService = Objects.requireNonNull(customerService);
         this.eventService = Objects.requireNonNull(eventService);
     }

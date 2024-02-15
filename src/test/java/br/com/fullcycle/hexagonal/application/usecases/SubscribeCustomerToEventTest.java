@@ -34,7 +34,7 @@ public class SubscribeCustomerToEventTest {
         aEvent.setName("Disney");
         aEvent.setTotalSpots(10);
 
-        final var subscribeInput = new SubscribeCustomerToEvent.Input(customerId, aEvent.getId());
+        final var subscribeInput = new SubscribeCustomerToEventUseCase.Input(customerId, aEvent.getId());
         // when
         final var customerService = Mockito.mock(CustomerService.class);
         final var eventService = Mockito.mock(EventService.class);
@@ -48,7 +48,7 @@ public class SubscribeCustomerToEventTest {
             return e;
         });
 
-        final var useCase = new SubscribeCustomerToEvent(customerService, eventService);
+        final var useCase = new SubscribeCustomerToEventUseCase(customerService, eventService);
         final var output = useCase.execute(subscribeInput);
 
         // then
@@ -67,14 +67,14 @@ public class SubscribeCustomerToEventTest {
         final var customerId = TSID.fast().toLong();
         final var eventId = TSID.fast().toLong();
 
-        final var subscribeInput = new SubscribeCustomerToEvent.Input(customerId, eventId);
+        final var subscribeInput = new SubscribeCustomerToEventUseCase.Input(customerId, eventId);
         // when
         final var customerService = Mockito.mock(CustomerService.class);
         final var eventService = Mockito.mock(EventService.class);
 
         when(customerService.findById(customerId)).thenReturn(Optional.empty());
 
-        final var useCase = new SubscribeCustomerToEvent(customerService, eventService);
+        final var useCase = new SubscribeCustomerToEventUseCase(customerService, eventService);
         final var actualException = Assertions.assertThrows(ValidationException.class,
                 () -> useCase.execute(subscribeInput));
 
@@ -91,7 +91,7 @@ public class SubscribeCustomerToEventTest {
         final var customerId = TSID.fast().toLong();
         final var eventId = TSID.fast().toLong();
 
-        final var subscribeInput = new SubscribeCustomerToEvent.Input(customerId, eventId);
+        final var subscribeInput = new SubscribeCustomerToEventUseCase.Input(customerId, eventId);
         // when
         final var customerService = Mockito.mock(CustomerService.class);
         final var eventService = Mockito.mock(EventService.class);
@@ -99,7 +99,7 @@ public class SubscribeCustomerToEventTest {
         when(customerService.findById(customerId)).thenReturn(Optional.of(new Customer()));
         when(eventService.findById(eventId)).thenReturn(Optional.empty());
 
-        final var useCase = new SubscribeCustomerToEvent(customerService, eventService);
+        final var useCase = new SubscribeCustomerToEventUseCase(customerService, eventService);
         final var actualException = Assertions.assertThrows(ValidationException.class,
                 () -> useCase.execute(subscribeInput));
 
@@ -121,7 +121,7 @@ public class SubscribeCustomerToEventTest {
         aEvent.setName("Disney");
         aEvent.setTotalSpots(10);
 
-        final var subscribeInput = new SubscribeCustomerToEvent.Input(customerId, aEvent.getId());
+        final var subscribeInput = new SubscribeCustomerToEventUseCase.Input(customerId, aEvent.getId());
         // when
         final var customerService = Mockito.mock(CustomerService.class);
         final var eventService = Mockito.mock(EventService.class);
@@ -130,7 +130,7 @@ public class SubscribeCustomerToEventTest {
         when(eventService.findById(eventId)).thenReturn(Optional.of(aEvent));
         when(eventService.findTicketByEventIdAndCustomerId(eventId, customerId)).thenReturn(Optional.of(new Ticket()));
 
-        final var useCase = new SubscribeCustomerToEvent(customerService, eventService);
+        final var useCase = new SubscribeCustomerToEventUseCase(customerService, eventService);
         final var actualException = Assertions.assertThrows(ValidationException.class,
                 () -> useCase.execute(subscribeInput));
 
@@ -152,7 +152,7 @@ public class SubscribeCustomerToEventTest {
         aEvent.setName("Disney");
         aEvent.setTotalSpots(0);
 
-        final var subscribeInput = new SubscribeCustomerToEvent.Input(customerId, aEvent.getId());
+        final var subscribeInput = new SubscribeCustomerToEventUseCase.Input(customerId, aEvent.getId());
         // when
         final var customerService = Mockito.mock(CustomerService.class);
         final var eventService = Mockito.mock(EventService.class);
@@ -161,7 +161,7 @@ public class SubscribeCustomerToEventTest {
         when(eventService.findById(eventId)).thenReturn(Optional.of(aEvent));
         when(eventService.findTicketByEventIdAndCustomerId(eventId, customerId)).thenReturn(Optional.empty());
 
-        final var useCase = new SubscribeCustomerToEvent(customerService, eventService);
+        final var useCase = new SubscribeCustomerToEventUseCase(customerService, eventService);
         final var actualException = Assertions.assertThrows(ValidationException.class,
                 () -> useCase.execute(subscribeInput));
 
