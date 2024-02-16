@@ -1,17 +1,13 @@
 package br.com.fullcycle.hexagonal.application.usecases;
 
-import static org.mockito.Mockito.when;
-
-import java.util.Optional;
 import java.util.UUID;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
-import br.com.fullcycle.hexagonal.infrastructure.models.Customer;
-import br.com.fullcycle.hexagonal.infrastructure.services.CustomerService;
+import br.com.fullcycle.hexagonal.application.InMemoryCustomerRepository;
+import br.com.fullcycle.hexagonal.application.entities.Customer;
 
 public class GetCustomerByIdUseCaseTest {
 
@@ -20,31 +16,27 @@ public class GetCustomerByIdUseCaseTest {
     public void testGetCustomerById() {
 
         // given
-        final var expectId = UUID.randomUUID().getMostSignificantBits();
-        final var expectCPF = "12345678901";
-        final var expectEmail = "john.doe@gmail.com";
-        final var expectName = "John Doe";
+        final var expectedCPF = "123.456.789-01";
+        final var expectedEmail = "john.doe@gmail.com";
+        final var expectedName = "John Doe";
 
-        final var aCustomer = new Customer();
-        aCustomer.setId(expectId);
-        aCustomer.setCpf(expectCPF);
-        aCustomer.setEmail(expectEmail);
-        aCustomer.setName(expectName);
+        final var aCustomer = Customer.newCustomer(expectedName, expectedCPF, expectedEmail);
 
-        final var input = new GetCustomerByIdUseCase.Input(expectId);
+        final var customerRepository = new InMemoryCustomerRepository();
+        customerRepository.create(aCustomer);
+
+        final var expectedID = aCustomer.customerId().value().toString();
+        final var input = new GetCustomerByIdUseCase.Input(expectedID);
 
         // when
-        final var customerService = Mockito.mock(CustomerService.class);
-        when(customerService.findById(expectId)).thenReturn(Optional.of(aCustomer));
-
-        final var useCase = new GetCustomerByIdUseCase(customerService);
+        final var useCase = new GetCustomerByIdUseCase(customerRepository);
         final var output = useCase.execute(input).get();
 
         // then
-        Assertions.assertEquals(expectId, output.id());
-        Assertions.assertEquals(expectCPF, output.cpf());
-        Assertions.assertEquals(expectEmail, output.email());
-        Assertions.assertEquals(expectName, output.name());
+        Assertions.assertEquals(expectedID, output.id());
+        Assertions.assertEquals(expectedCPF, output.cpf());
+        Assertions.assertEquals(expectedEmail, output.email());
+        Assertions.assertEquals(expectedName, output.name());
 
     }
 
@@ -53,15 +45,13 @@ public class GetCustomerByIdUseCaseTest {
     public void testGetCustomerByIdWithInvalidId() {
 
         // given
-        final var expectId = UUID.randomUUID().getMostSignificantBits();
+        final var expectedID = UUID.randomUUID().toString();
 
-        final var input = new GetCustomerByIdUseCase.Input(expectId);
+        final var input = new GetCustomerByIdUseCase.Input(expectedID);
 
         // when
-        final var customerService = Mockito.mock(CustomerService.class);
-        when(customerService.findById(expectId)).thenReturn(Optional.empty());
-
-        final var useCase = new GetCustomerByIdUseCase(customerService);
+        final var customerRepository = new InMemoryCustomerRepository();
+        final var useCase = new GetCustomerByIdUseCase(customerRepository);
         final var output = useCase.execute(input);
 
         // then
