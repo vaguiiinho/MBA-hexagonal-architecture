@@ -1,19 +1,12 @@
 package br.com.fullcycle.hexagonal.application.usecases;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-
-import java.util.Optional;
-import java.util.UUID;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
+import br.com.fullcycle.hexagonal.application.InMemoryPartnerRepository;
+import br.com.fullcycle.hexagonal.application.entities.Partner;
 import br.com.fullcycle.hexagonal.application.exceptions.ValidationException;
-import br.com.fullcycle.hexagonal.infrastructure.models.Partner;
-import br.com.fullcycle.hexagonal.infrastructure.services.PartnerService;
 
 public class CreatePartnerUseCaseTest {
 
@@ -22,23 +15,16 @@ public class CreatePartnerUseCaseTest {
     public void testCreatePartner() {
 
         // given
-        final var expectCNPJ = "41536538000100";
+        final var expectCNPJ = "41.536.538/0001-00";
         final var expectEmail = "john.doe@gmail.com";
         final var expectName = "John Doe";
 
         final var createInput = new CreatePartnerUseCase.Input(expectCNPJ, expectEmail, expectName);
 
         // when
-        final var partnerService = Mockito.mock(PartnerService.class);
-        when(partnerService.findByCnpj(expectCNPJ)).thenReturn(Optional.empty());
-        when(partnerService.findByEmail(expectEmail)).thenReturn(Optional.empty());
-        when(partnerService.save(any())).thenAnswer(a -> {
-            var customer = a.getArgument(0, Partner.class);
-            customer.setId(UUID.randomUUID().getMostSignificantBits());
-            return customer;
-        });
+        final var partnerRepository = new InMemoryPartnerRepository();
 
-        final var useCase = new CreatePartnerUseCase(partnerService);
+        final var useCase = new CreatePartnerUseCase(partnerRepository);
         final var output = useCase.execute(createInput);
 
         // then
@@ -54,24 +40,19 @@ public class CreatePartnerUseCaseTest {
     public void testCreateWithDuplicatedCNPJShouldFail() throws Exception {
 
         // given
-        final var expectCNPJ = "41536538000100";
+        final var expectCNPJ = "41.536.538/0001-00";
         final var expectEmail = "john.doe@gmail.com";
         final var expectName = "John Doe";
         final var expectedError = "Partner already exists";
 
+        final var aPartner = Partner.newPartner(expectName, "41.536.538/0002-00", expectEmail);
+        var partnerRepository = new InMemoryPartnerRepository();
+        partnerRepository.create(aPartner);
         final var createInput = new CreatePartnerUseCase.Input(expectCNPJ, expectEmail, expectName);
 
-        final var aPartner = new Partner();
-        aPartner.setId(UUID.randomUUID().getMostSignificantBits());
-        aPartner.setCnpj(expectCNPJ);
-        aPartner.setEmail(expectEmail);
-        aPartner.setName(expectName);
-
         // when
-        final var partnerService = Mockito.mock(PartnerService.class);
-        when(partnerService.findByCnpj(expectCNPJ)).thenReturn(Optional.of(aPartner));
 
-        final var useCase = new CreatePartnerUseCase(partnerService);
+        final var useCase = new CreatePartnerUseCase(partnerRepository);
         final var actualException = Assertions.assertThrows(ValidationException.class,
                 () -> useCase.execute(createInput));
 
@@ -85,24 +66,19 @@ public class CreatePartnerUseCaseTest {
     public void testCreateWithDuplicatedEmailShouldFail() throws Exception {
 
         // given
-        final var expectCNPJ = "41536538000100";
+        final var expectCNPJ = "41.536.538/0001-00";
         final var expectEmail = "john.doe@gmail.com";
         final var expectName = "John Doe";
         final var expectedError = "Partner already exists";
 
+        final var aPartner = Partner.newPartner(expectName, "41.536.538/0002-00", expectEmail);
+        final var partnerRepository = new InMemoryPartnerRepository();
+        partnerRepository.create(aPartner);
+
         final var createInput = new CreatePartnerUseCase.Input(expectCNPJ, expectEmail, expectName);
-
-        final var aPartner = new Partner();
-        aPartner.setId(UUID.randomUUID().getMostSignificantBits());
-        aPartner.setCnpj(expectCNPJ);
-        aPartner.setEmail(expectEmail);
-        aPartner.setName(expectName);
-
         // when
-        final var partnerService = Mockito.mock(PartnerService.class);
-        when(partnerService.findByEmail(expectEmail)).thenReturn(Optional.of(aPartner));
 
-        final var useCase = new CreatePartnerUseCase(partnerService);
+        final var useCase = new CreatePartnerUseCase(partnerRepository);
         final var actualException = Assertions.assertThrows(ValidationException.class,
                 () -> useCase.execute(createInput));
 
