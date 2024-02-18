@@ -7,11 +7,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import br.com.fullcycle.hexagonal.IntegrationTest;
+import br.com.fullcycle.hexagonal.application.entities.PartnerId;
 import br.com.fullcycle.hexagonal.application.exceptions.ValidationException;
 import br.com.fullcycle.hexagonal.infrastructure.models.Partner;
 import br.com.fullcycle.hexagonal.infrastructure.repositories.EventRepository;
 import br.com.fullcycle.hexagonal.infrastructure.repositories.PartnerRepository;
-import io.hypersistence.tsid.TSID;
 
 public class CreateEventUseCaseTestIT extends IntegrationTest {
 
@@ -38,7 +38,7 @@ public class CreateEventUseCaseTestIT extends IntegrationTest {
         final var expectedDate = "2021-01-01";
         final var expectedName = "Disney on Ice";
         final var expectedTotalSpots = 10;
-        final var expectedPartnerId = partner.getId();
+        final var expectedPartnerId = partner.getId().toString();
 
         final var createInput = new CreateEventUseCase.Input(expectedDate, expectedName, expectedPartnerId,
                 expectedTotalSpots);
@@ -62,7 +62,7 @@ public class CreateEventUseCaseTestIT extends IntegrationTest {
         final var expectedDate = "2021-01-01";
         final var expectedName = "Disney on Ice";
         final var expectedTotalSpots = 100;
-        final var expectedPartnerId = TSID.fast().toLong();
+        final var expectedPartnerId = PartnerId.unique().value();
         final var expectedError = "Partner not found";
 
         final var createInput = new CreateEventUseCase.Input(

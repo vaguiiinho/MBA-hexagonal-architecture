@@ -20,7 +20,7 @@ public class GetPartnerByIdUseCase
     public Optional<Output> execute(final Input input) {
         return partnerRepository.partnerOfId(PartnerId.with(input.id))
                 .map(p -> new Output(
-                        p.partnerId().value().toString(),
+                        p.partnerId().value(),
                         p.cnpj().value(),
                         p.email().value(),
                         p.name().value()));

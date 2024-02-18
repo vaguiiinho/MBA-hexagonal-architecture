@@ -1,48 +1,36 @@
 package br.com.fullcycle.hexagonal.application.usecases;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-
-import java.util.Optional;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
+import br.com.fullcycle.hexagonal.application.InMemoryEventRepository;
+import br.com.fullcycle.hexagonal.application.InMemoryPartnerRepository;
+import br.com.fullcycle.hexagonal.application.entities.Partner;
+import br.com.fullcycle.hexagonal.application.entities.PartnerId;
 import br.com.fullcycle.hexagonal.application.exceptions.ValidationException;
-import br.com.fullcycle.hexagonal.infrastructure.models.Event;
-import br.com.fullcycle.hexagonal.infrastructure.models.Partner;
-import br.com.fullcycle.hexagonal.infrastructure.services.EventService;
-import br.com.fullcycle.hexagonal.infrastructure.services.PartnerService;
-import io.hypersistence.tsid.TSID;
 
 public class CreateEventUseCaseTest {
     @Test
     @DisplayName("Deve criar um evento")
     public void testCreate() throws Exception {
         // given
+        final var aPartner = Partner.newPartner("John doe", "41.536.538/0001-00", "john.doe@gmail.com");
         final var expectedDate = "2021-01-01";
         final var expectedName = "Disney on Ice";
         final var expectedTotalSpots = 10;
-        final var expectedPartnerId = TSID.fast().toLong();
+        final var expectedPartnerId = aPartner.partnerId().value();
 
         final var createInput = new CreateEventUseCase.Input(expectedDate, expectedName, expectedPartnerId,
                 expectedTotalSpots);
         // when
 
-        final var partnerService = Mockito.mock(PartnerService.class);
-        final var eventService = Mockito.mock(EventService.class);
+        final var partnerRepository = new InMemoryPartnerRepository();
+        final var eventRepository = new InMemoryEventRepository();
 
-        when(eventService.save(any())).thenAnswer(a -> {
-            final var e = a.getArgument(0, Event.class);
-            e.setId(TSID.fast().toLong());
-            return e;
-        });
+        partnerRepository.create(aPartner);
 
-        when(partnerService.findById(expectedPartnerId)).thenReturn(Optional.of(new Partner()));
-
-        final var useCase = new CreateEventUseCase(partnerService, eventService);
+        final var useCase = new CreateEventUseCase(partnerRepository, eventRepository);
         final var output = useCase.execute(createInput);
 
         // then
@@ -61,7 +49,7 @@ public class CreateEventUseCaseTest {
         final var expectedDate = "2021-01-01";
         final var expectedName = "Disney on Ice";
         final var expectedTotalSpots = 100;
-        final var expectedPartnerId = TSID.fast().toLong();
+        final var expectedPartnerId = PartnerId.unique().value();
         final var expectedError = "Partner not found";
 
         final var createInput = new CreateEventUseCase.Input(
@@ -71,12 +59,10 @@ public class CreateEventUseCaseTest {
                 expectedTotalSpots);
         // when
 
-        final var partnerService = Mockito.mock(PartnerService.class);
-        final var eventService = Mockito.mock(EventService.class);
+        final var partnerRepository = new InMemoryPartnerRepository();
+        final var eventRepository = new InMemoryEventRepository();
 
-        when(partnerService.findById(expectedPartnerId)).thenReturn(Optional.empty());
-
-        final var useCase = new CreateEventUseCase(partnerService, eventService);
+        final var useCase = new CreateEventUseCase(partnerRepository, eventRepository);
         final var actualException = Assertions.assertThrows(
                 ValidationException.class, () -> useCase.execute(createInput));
 
