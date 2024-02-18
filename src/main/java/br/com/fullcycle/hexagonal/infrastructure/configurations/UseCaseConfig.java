@@ -58,6 +58,6 @@ public class UseCaseConfig {
 
     @Bean
     public SubscribeCustomerToEventUseCase getSubscribeCustomerToEvent() {
-        return new SubscribeCustomerToEventUseCase(customerService, eventService);
+        return new SubscribeCustomerToEventUseCase(null, null, null);
     }
 }
