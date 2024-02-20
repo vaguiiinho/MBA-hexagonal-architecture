@@ -18,7 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import br.com.fullcycle.hexagonal.application.usecases.partner.CreatePartnerUseCase;
 import br.com.fullcycle.hexagonal.application.usecases.partner.GetPartnerByIdUseCase;
 import br.com.fullcycle.hexagonal.infrastructure.dtos.NewPartnerDTO;
-import br.com.fullcycle.hexagonal.infrastructure.repositories.PartnerRepository;
+import br.com.fullcycle.hexagonal.infrastructure.jpa.repositories.PartnerJpaRepository;
 
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
@@ -32,7 +32,7 @@ public class PartnerControllerTest {
         private ObjectMapper mapper;
 
         @Autowired
-        private PartnerRepository partnerRepository;
+        private PartnerJpaRepository partnerRepository;
 
         @AfterEach
         void tearDown() {

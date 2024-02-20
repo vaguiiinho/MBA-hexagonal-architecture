@@ -5,30 +5,33 @@ import java.util.Objects;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import br.com.fullcycle.hexagonal.application.repositories.CustomerRepository;
+import br.com.fullcycle.hexagonal.application.repositories.EventRepository;
+import br.com.fullcycle.hexagonal.application.repositories.PartnerRepository;
+import br.com.fullcycle.hexagonal.application.repositories.TicketRepository;
 import br.com.fullcycle.hexagonal.application.usecases.customer.CreateCustomerUseCase;
 import br.com.fullcycle.hexagonal.application.usecases.customer.GetCustomerByIdUseCase;
 import br.com.fullcycle.hexagonal.application.usecases.event.CreateEventUseCase;
 import br.com.fullcycle.hexagonal.application.usecases.event.SubscribeCustomerToEventUseCase;
 import br.com.fullcycle.hexagonal.application.usecases.partner.CreatePartnerUseCase;
 import br.com.fullcycle.hexagonal.application.usecases.partner.GetPartnerByIdUseCase;
-import br.com.fullcycle.hexagonal.infrastructure.services.CustomerService;
-import br.com.fullcycle.hexagonal.infrastructure.services.EventService;
-import br.com.fullcycle.hexagonal.infrastructure.services.PartnerService;
 
 @Configuration
 public class UseCaseConfig {
 
-    private final CustomerService customerService;
-    private final EventService eventService;
-    private final PartnerService partnerService;
+    private final CustomerRepository customerRepository;
+    private final EventRepository eventRepository;
+    private final PartnerRepository partnerRepository;
+    private final TicketRepository ticketRepository;
 
-    public UseCaseConfig(
-            CustomerService customerService,
-            EventService eventService,
-            PartnerService partnerService) {
-        this.customerService = Objects.requireNonNull(customerService);
-        this.eventService = Objects.requireNonNull(eventService);
-        this.partnerService = Objects.requireNonNull(partnerService);
+    public UseCaseConfig(CustomerRepository customerRepository,
+            EventRepository eventRepository,
+            PartnerRepository partnerRepository,
+            TicketRepository ticketRepository) {
+        this.customerRepository = Objects.requireNonNull(customerRepository);
+        this.eventRepository = Objects.requireNonNull(eventRepository);
+        this.partnerRepository = Objects.requireNonNull(partnerRepository);
+        this.ticketRepository = Objects.requireNonNull(ticketRepository);
     }
 
     @Bean

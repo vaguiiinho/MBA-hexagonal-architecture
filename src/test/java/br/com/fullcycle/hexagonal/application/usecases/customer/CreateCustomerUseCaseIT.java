@@ -8,9 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import br.com.fullcycle.hexagonal.IntegrationTest;
 import br.com.fullcycle.hexagonal.application.exceptions.ValidationException;
-import br.com.fullcycle.hexagonal.application.usecases.customer.CreateCustomerUseCase;
-import br.com.fullcycle.hexagonal.infrastructure.models.Customer;
-import br.com.fullcycle.hexagonal.infrastructure.repositories.CustomerRepository;
+import br.com.fullcycle.hexagonal.infrastructure.jpa.entities.CustomerEntity;
+import br.com.fullcycle.hexagonal.infrastructure.jpa.repositories.CustomerJpaRepository;
 
 public class CreateCustomerUseCaseIT extends IntegrationTest {
 
@@ -18,7 +17,7 @@ public class CreateCustomerUseCaseIT extends IntegrationTest {
     private CreateCustomerUseCase useCase;
 
     @Autowired
-    private CustomerRepository customerRepository;
+    private CustomerJpaRepository customerRepository;
 
     @AfterEach
     void tearDown() {
@@ -96,8 +95,8 @@ public class CreateCustomerUseCaseIT extends IntegrationTest {
 
     }
 
-    private Customer createCustomer(final String cpf, final String email, final String name) {
-        final var aCustomer = new Customer();
+    private CustomerEntity createCustomer(final String cpf, final String email, final String name) {
+        final var aCustomer = new CustomerEntity();
         aCustomer.setCpf(cpf);
         aCustomer.setEmail(email);
         aCustomer.setName(name);
