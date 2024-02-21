@@ -1,7 +1,7 @@
 package br.com.fullcycle.hexagonal.infrastructure.rest;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +15,10 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import br.com.fullcycle.hexagonal.application.repositories.PartnerRepository;
 import br.com.fullcycle.hexagonal.application.usecases.partner.CreatePartnerUseCase;
 import br.com.fullcycle.hexagonal.application.usecases.partner.GetPartnerByIdUseCase;
 import br.com.fullcycle.hexagonal.infrastructure.dtos.NewPartnerDTO;
-import br.com.fullcycle.hexagonal.infrastructure.jpa.repositories.PartnerJpaRepository;
 
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
@@ -32,10 +32,10 @@ public class PartnerControllerTest {
         private ObjectMapper mapper;
 
         @Autowired
-        private PartnerJpaRepository partnerRepository;
+        private PartnerRepository partnerRepository;
 
-        @AfterEach
-        void tearDown() {
+        @BeforeEach
+        void setUp() {
                 partnerRepository.deleteAll();
         }
 
@@ -45,7 +45,7 @@ public class PartnerControllerTest {
 
                 var partner = new NewPartnerDTO(
                                 "John Doe",
-                                "41536538000100",
+                                "41.536.538/0001-00",
                                 "john.doe@gmail.com");
 
                 final var result = this.mvc.perform(
@@ -54,7 +54,7 @@ public class PartnerControllerTest {
                                                 .content(mapper.writeValueAsString(partner)))
                                 .andExpect(MockMvcResultMatchers.status().isCreated())
                                 .andExpect(MockMvcResultMatchers.header().exists("Location"))
-                                .andExpect(MockMvcResultMatchers.jsonPath("$.id").isNumber())
+                                .andExpect(MockMvcResultMatchers.jsonPath("$.id").isString())
                                 .andReturn().getResponse().getContentAsByteArray();
 
                 var actualResponse = mapper.readValue(result, NewPartnerDTO.class);
@@ -69,7 +69,7 @@ public class PartnerControllerTest {
 
                 var partner = new NewPartnerDTO(
                                 "John Doe",
-                                "41536538000100",
+                                "41.536.538/0001-00",
                                 "john.doe@gmail.com");
 
                 // Cria o primeiro parceiro
@@ -79,12 +79,12 @@ public class PartnerControllerTest {
                                                 .content(mapper.writeValueAsString(partner)))
                                 .andExpect(MockMvcResultMatchers.status().isCreated())
                                 .andExpect(MockMvcResultMatchers.header().exists("Location"))
-                                .andExpect(MockMvcResultMatchers.jsonPath("$.id").isNumber())
+                                .andExpect(MockMvcResultMatchers.jsonPath("$.id").isString())
                                 .andReturn().getResponse().getContentAsByteArray();
 
                 partner = new NewPartnerDTO(
                                 "John Doe",
-                                "41536538000100",
+                                "41.536.538/0001-00",
                                 "john.doe@gmail.com");
 
                 // Tenta criar o segundo parceiro com o mesmo CPF
@@ -102,7 +102,7 @@ public class PartnerControllerTest {
 
                 var partner = new NewPartnerDTO(
                                 "John Doe",
-                                "41536538000100",
+                                "41.536.538/0001-00",
                                 "john.doe@gmail.com");
 
                 // Cria o primeiro parceiro
@@ -112,12 +112,12 @@ public class PartnerControllerTest {
                                                 .content(mapper.writeValueAsString(partner)))
                                 .andExpect(MockMvcResultMatchers.status().isCreated())
                                 .andExpect(MockMvcResultMatchers.header().exists("Location"))
-                                .andExpect(MockMvcResultMatchers.jsonPath("$.id").isNumber())
+                                .andExpect(MockMvcResultMatchers.jsonPath("$.id").isString())
                                 .andReturn().getResponse().getContentAsByteArray();
 
                 partner = new NewPartnerDTO(
                                 "John Doe",
-                                "41536538000100",
+                                "41.536.538/0001-00",
                                 "john.doe@gmail.com");
 
                 // Tenta criar o segundo parceiro com o mesmo CNPJ
@@ -135,7 +135,7 @@ public class PartnerControllerTest {
 
                 var partner = new NewPartnerDTO(
                                 "John Doe",
-                                "41536538000100",
+                                "41.536.538/0001-00",
                                 "john.doe@gmail.com");
 
                 final var createResult = this.mvc.perform(

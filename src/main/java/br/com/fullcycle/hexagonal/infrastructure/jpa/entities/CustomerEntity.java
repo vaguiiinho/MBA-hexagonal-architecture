@@ -1,13 +1,13 @@
 package br.com.fullcycle.hexagonal.infrastructure.jpa.entities;
 
-import java.util.Objects;
-import java.util.UUID;
-
 import br.com.fullcycle.hexagonal.application.domain.customer.Customer;
 import br.com.fullcycle.hexagonal.application.domain.customer.CustomerId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+
+import java.util.Objects;
+import java.util.UUID;
 
 @Entity(name = "Customer")
 @Table(name = "customers")
@@ -37,7 +37,8 @@ public class CustomerEntity {
                 UUID.fromString(customer.customerId().value()),
                 customer.name().value(),
                 customer.cpf().value(),
-                customer.email().value());
+                customer.email().value()
+        );
     }
 
     public Customer toCustomer() {
@@ -78,10 +79,8 @@ public class CustomerEntity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (o == null || getClass() != o.getClass())
-            return false;
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
         CustomerEntity customer = (CustomerEntity) o;
         return Objects.equals(id, customer.id);
     }

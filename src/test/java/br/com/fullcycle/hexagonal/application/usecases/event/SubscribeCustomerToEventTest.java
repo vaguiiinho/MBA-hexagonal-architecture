@@ -14,7 +14,6 @@ import br.com.fullcycle.hexagonal.application.exceptions.ValidationException;
 import br.com.fullcycle.hexagonal.application.repository.InMemoryCustomerRepository;
 import br.com.fullcycle.hexagonal.application.repository.InMemoryEventRepository;
 import br.com.fullcycle.hexagonal.application.repository.InMemoryTicketRepository;
-import br.com.fullcycle.hexagonal.application.usecases.event.SubscribeCustomerToEventUseCase;
 
 public class SubscribeCustomerToEventTest {
     @Test

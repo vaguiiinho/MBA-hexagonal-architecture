@@ -30,12 +30,12 @@ public class InMemoryCustomerRepository implements CustomerRepository {
 
     @Override
     public Optional<Customer> customerOfCPF(Cpf cpf) {
-        return Optional.ofNullable(this.customersByCPF.get(Objects.requireNonNull(cpf)));
+        return Optional.ofNullable(this.customersByCPF.get(cpf.value()));
     }
 
     @Override
     public Optional<Customer> customerOfEmail(Email email) {
-        return Optional.ofNullable(this.customersByEmail.get(Objects.requireNonNull(email)));
+        return Optional.ofNullable(this.customersByEmail.get(email.value()));
     }
 
     @Override

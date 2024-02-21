@@ -9,7 +9,6 @@ import br.com.fullcycle.hexagonal.application.domain.partner.PartnerId;
 import br.com.fullcycle.hexagonal.application.exceptions.ValidationException;
 import br.com.fullcycle.hexagonal.application.repository.InMemoryEventRepository;
 import br.com.fullcycle.hexagonal.application.repository.InMemoryPartnerRepository;
-import br.com.fullcycle.hexagonal.application.usecases.event.CreateEventUseCase;
 
 public class CreateEventUseCaseTest {
     @Test

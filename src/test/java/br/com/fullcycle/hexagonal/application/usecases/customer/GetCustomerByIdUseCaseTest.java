@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 
 import br.com.fullcycle.hexagonal.application.domain.customer.Customer;
 import br.com.fullcycle.hexagonal.application.repository.InMemoryCustomerRepository;
-import br.com.fullcycle.hexagonal.application.usecases.customer.GetCustomerByIdUseCase;
 
 public class GetCustomerByIdUseCaseTest {
 

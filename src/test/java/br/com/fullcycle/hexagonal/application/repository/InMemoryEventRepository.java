@@ -24,13 +24,13 @@ public class InMemoryEventRepository implements EventRepository {
 
     @Override
     public Event create(Event event) {
-        this.events.put(event.eventId().value().toString(), event);
+        this.events.put(event.eventId().value(), event);
         return event;
     }
 
     @Override
     public Event update(Event event) {
-        this.events.put(event.eventId().value().toString(), event);
+        this.events.put(event.eventId().value(), event);
         return event;
     }
 

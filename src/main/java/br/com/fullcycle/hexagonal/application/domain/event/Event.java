@@ -30,25 +30,36 @@ public class Event {
             final Integer totalSpots,
             final PartnerId partnerId,
             final Set<EventTicket> tickets) {
-        this(eventId);
+        this(eventId, tickets);
         this.setName(name);
         this.setDate(date);
         this.setTotalSpots(totalSpots);
         this.setPartnerId(partnerId);
     }
 
-    private Event(final EventId eventId) {
+    private Event(final EventId eventId, final Set<EventTicket> tickets) {
         if (eventId == null) {
             throw new ValidationException("invalid eventId for event");
         }
 
         this.eventId = eventId;
-        this.tickets = new HashSet<>(0);
+        this.tickets = tickets != null ? tickets : new HashSet<>(0);
+
     }
 
     public static Event newEvent(final String name, final String date, final Integer totalSpots,
             final Partner partner) {
         return new Event(EventId.unique(), name, date, totalSpots, partner.partnerId(), null);
+    }
+
+    public static Event restore(
+            final String id,
+            final String name,
+            final String date,
+            final int totalSpots,
+            final String partnerId,
+            final Set<EventTicket> tickets) {
+        return new Event(EventId.with(id), name, date, totalSpots, PartnerId.with(partnerId), tickets);
     }
 
     public Ticket reserveTicket(final CustomerId aCustomerId) {
@@ -96,8 +107,10 @@ public class Event {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         Event event = (Event) o;
         return Objects.equals(eventId, event.eventId);
     }
@@ -115,7 +128,7 @@ public class Event {
         if (date == null) {
             throw new ValidationException("Invalid date for Event");
         }
-        
+
         try {
             this.date = LocalDate.parse(date, DateTimeFormatter.ISO_LOCAL_DATE);
         } catch (RuntimeException ex) {
