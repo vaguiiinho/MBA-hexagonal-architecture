@@ -1,11 +1,10 @@
 package br.com.fullcycle.domain.partner;
 
-import br.com.fullcycle.domain.exceptions.ValidationException;
+import java.util.Objects;
+
 import br.com.fullcycle.domain.person.Cnpj;
 import br.com.fullcycle.domain.person.Email;
 import br.com.fullcycle.domain.person.Name;
-
-import java.util.Objects;
 
 public class Partner {
     private final PartnerId partnerId;

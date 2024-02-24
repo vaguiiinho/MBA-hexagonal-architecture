@@ -1,15 +1,11 @@
 package br.com.fullcycle.domain.event.ticket;
 
-import br.com.fullcycle.domain.event.Event;
+import java.time.Instant;
+import java.util.Objects;
+
 import br.com.fullcycle.domain.customer.CustomerId;
 import br.com.fullcycle.domain.event.EventId;
 import br.com.fullcycle.domain.exceptions.ValidationException;
-
-import java.time.Instant;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
 
 public class Ticket {
     private final TicketId ticketId;
@@ -66,8 +62,10 @@ public class Ticket {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         Ticket ticket = (Ticket) o;
         return Objects.equals(ticketId, ticket.ticketId);
     }

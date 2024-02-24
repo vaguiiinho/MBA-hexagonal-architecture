@@ -6,9 +6,9 @@ import br.com.fullcycle.domain.customer.CustomerRepository;
 import br.com.fullcycle.domain.exceptions.ValidationException;
 import br.com.fullcycle.domain.person.Cpf;
 import br.com.fullcycle.domain.person.Email;
-import jakarta.inject.Named;
 
-@Named
+
+
 public class CreateCustomerUseCase
         extends UseCase<CreateCustomerUseCase.Input, CreateCustomerUseCase.Output> {
 

@@ -2,9 +2,6 @@ package br.com.fullcycle.domain.event.ticket;
 
 import java.util.Optional;
 
-import br.com.fullcycle.domain.event.ticket.Ticket;
-import br.com.fullcycle.domain.event.ticket.TicketId;
-
 public interface TicketRepository {
       Optional<Ticket> ticketOfId(TicketId anId);
 

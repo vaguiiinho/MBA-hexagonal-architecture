@@ -1,11 +1,12 @@
 package br.com.fullcycle.domain.event.ticket;
 
-import br.com.fullcycle.domain.customer.Customer;
-import br.com.fullcycle.domain.event.Event;
-import br.com.fullcycle.domain.partner.Partner;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import br.com.fullcycle.domain.customer.Customer;
+import br.com.fullcycle.domain.event.Event;
+import br.com.fullcycle.domain.partner.Partner;
 
 public class TicketTest {
     @Test
@@ -18,8 +19,6 @@ public class TicketTest {
 
         final var anEvent = Event.newEvent("Disney on Ice", "2021-01-01", 10, aPartner);
 
-        final var expectedTickets = 1;
-        final var expectedTicketOrder = 1;
         final var expectedTicketStatus = TicketStatus.PENDING;
         final var expectedEventId = anEvent.eventId();
         final var expectedCustomerId = aCustomer.customerId();
