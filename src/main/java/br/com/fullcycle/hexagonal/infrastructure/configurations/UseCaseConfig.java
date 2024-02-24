@@ -5,16 +5,16 @@ import java.util.Objects;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import br.com.fullcycle.hexagonal.application.repositories.CustomerRepository;
-import br.com.fullcycle.hexagonal.application.repositories.EventRepository;
-import br.com.fullcycle.hexagonal.application.repositories.PartnerRepository;
-import br.com.fullcycle.hexagonal.application.repositories.TicketRepository;
-import br.com.fullcycle.hexagonal.application.usecases.customer.CreateCustomerUseCase;
-import br.com.fullcycle.hexagonal.application.usecases.customer.GetCustomerByIdUseCase;
-import br.com.fullcycle.hexagonal.application.usecases.event.CreateEventUseCase;
-import br.com.fullcycle.hexagonal.application.usecases.event.SubscribeCustomerToEventUseCase;
-import br.com.fullcycle.hexagonal.application.usecases.partner.CreatePartnerUseCase;
-import br.com.fullcycle.hexagonal.application.usecases.partner.GetPartnerByIdUseCase;
+import br.com.fullcycle.domain.repositories.CustomerRepository;
+import br.com.fullcycle.domain.repositories.EventRepository;
+import br.com.fullcycle.domain.repositories.PartnerRepository;
+import br.com.fullcycle.domain.repositories.TicketRepository;
+import br.com.fullcycle.application.customer.CreateCustomerUseCase;
+import br.com.fullcycle.application.customer.GetCustomerByIdUseCase;
+import br.com.fullcycle.application.event.CreateEventUseCase;
+import br.com.fullcycle.application.event.SubscribeCustomerToEventUseCase;
+import br.com.fullcycle.application.partner.CreatePartnerUseCase;
+import br.com.fullcycle.application.partner.GetPartnerByIdUseCase;
 
 @Configuration
 public class UseCaseConfig {

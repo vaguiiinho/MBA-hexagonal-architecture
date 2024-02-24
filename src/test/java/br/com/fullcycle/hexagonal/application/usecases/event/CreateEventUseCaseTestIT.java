@@ -7,11 +7,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import br.com.fullcycle.hexagonal.IntegrationTest;
-import br.com.fullcycle.hexagonal.application.domain.partner.Partner;
-import br.com.fullcycle.hexagonal.application.domain.partner.PartnerId;
-import br.com.fullcycle.hexagonal.application.exceptions.ValidationException;
-import br.com.fullcycle.hexagonal.application.repositories.EventRepository;
-import br.com.fullcycle.hexagonal.application.repositories.PartnerRepository;
+import br.com.fullcycle.domain.partner.Partner;
+import br.com.fullcycle.domain.partner.PartnerId;
+import br.com.fullcycle.domain.exceptions.ValidationException;
+import br.com.fullcycle.domain.repositories.EventRepository;
+import br.com.fullcycle.domain.repositories.PartnerRepository;
 
 public class CreateEventUseCaseTestIT extends IntegrationTest {
 

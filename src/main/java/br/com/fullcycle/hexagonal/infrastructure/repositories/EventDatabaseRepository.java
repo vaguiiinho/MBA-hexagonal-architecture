@@ -7,9 +7,9 @@ import java.util.UUID;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.fullcycle.hexagonal.application.domain.event.Event;
-import br.com.fullcycle.hexagonal.application.domain.event.EventId;
-import br.com.fullcycle.hexagonal.application.repositories.EventRepository;
+import br.com.fullcycle.domain.event.Event;
+import br.com.fullcycle.domain.event.EventId;
+import br.com.fullcycle.domain.repositories.EventRepository;
 import br.com.fullcycle.hexagonal.infrastructure.jpa.entities.EventEntity;
 import br.com.fullcycle.hexagonal.infrastructure.jpa.repositories.EventJpaRepository;
 

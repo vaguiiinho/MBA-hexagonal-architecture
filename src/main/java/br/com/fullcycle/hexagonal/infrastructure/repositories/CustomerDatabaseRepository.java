@@ -7,11 +7,11 @@ import java.util.UUID;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.fullcycle.hexagonal.application.domain.customer.Customer;
-import br.com.fullcycle.hexagonal.application.domain.customer.CustomerId;
-import br.com.fullcycle.hexagonal.application.domain.person.Cpf;
-import br.com.fullcycle.hexagonal.application.domain.person.Email;
-import br.com.fullcycle.hexagonal.application.repositories.CustomerRepository;
+import br.com.fullcycle.domain.customer.Customer;
+import br.com.fullcycle.domain.customer.CustomerId;
+import br.com.fullcycle.domain.person.Cpf;
+import br.com.fullcycle.domain.person.Email;
+import br.com.fullcycle.domain.repositories.CustomerRepository;
 import br.com.fullcycle.hexagonal.infrastructure.jpa.entities.CustomerEntity;
 import br.com.fullcycle.hexagonal.infrastructure.jpa.repositories.CustomerJpaRepository;
 

@@ -2,8 +2,8 @@ package br.com.fullcycle.hexagonal.infrastructure.jpa.entities;
 
 import java.util.UUID;
 
-import br.com.fullcycle.hexagonal.application.domain.partner.Partner;
-import br.com.fullcycle.hexagonal.application.domain.partner.PartnerId;
+import br.com.fullcycle.domain.partner.Partner;
+import br.com.fullcycle.domain.partner.PartnerId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;

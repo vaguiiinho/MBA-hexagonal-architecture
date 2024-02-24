@@ -4,11 +4,11 @@ import java.time.Instant;
 import java.util.Objects;
 import java.util.UUID;
 
-import br.com.fullcycle.hexagonal.application.domain.customer.CustomerId;
-import br.com.fullcycle.hexagonal.application.domain.event.EventId;
-import br.com.fullcycle.hexagonal.application.domain.event.ticket.Ticket;
-import br.com.fullcycle.hexagonal.application.domain.event.ticket.TicketId;
-import br.com.fullcycle.hexagonal.application.domain.event.ticket.TicketStatus;
+import br.com.fullcycle.domain.customer.CustomerId;
+import br.com.fullcycle.domain.event.EventId;
+import br.com.fullcycle.domain.event.ticket.Ticket;
+import br.com.fullcycle.domain.event.ticket.TicketId;
+import br.com.fullcycle.domain.event.ticket.TicketStatus;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;

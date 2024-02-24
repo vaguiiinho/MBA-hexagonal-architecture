@@ -1,7 +1,7 @@
 package br.com.fullcycle.hexagonal.infrastructure.jpa.entities;
 
-import br.com.fullcycle.hexagonal.application.domain.customer.Customer;
-import br.com.fullcycle.hexagonal.application.domain.customer.CustomerId;
+import br.com.fullcycle.domain.customer.Customer;
+import br.com.fullcycle.domain.customer.CustomerId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;

@@ -8,9 +8,9 @@ import java.util.UUID;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.fullcycle.hexagonal.application.domain.event.ticket.Ticket;
-import br.com.fullcycle.hexagonal.application.domain.event.ticket.TicketId;
-import br.com.fullcycle.hexagonal.application.repositories.TicketRepository;
+import br.com.fullcycle.domain.event.ticket.Ticket;
+import br.com.fullcycle.domain.event.ticket.TicketId;
+import br.com.fullcycle.domain.repositories.TicketRepository;
 import br.com.fullcycle.hexagonal.infrastructure.jpa.entities.TicketEntity;
 import br.com.fullcycle.hexagonal.infrastructure.jpa.repositories.TicketJpaRepository;
 
