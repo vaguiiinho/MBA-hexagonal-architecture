@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.fullcycle.domain.event.Event;
 import br.com.fullcycle.domain.event.EventId;
-import br.com.fullcycle.domain.repositories.EventRepository;
+import br.com.fullcycle.domain.event.EventRepository;
 import br.com.fullcycle.hexagonal.infrastructure.jpa.entities.EventEntity;
 import br.com.fullcycle.hexagonal.infrastructure.jpa.repositories.EventJpaRepository;
 
@@ -23,28 +23,28 @@ public class EventDatabaseRepository implements EventRepository {
         this.eventJpaRepository = Objects.requireNonNull(EventJpaRepository);
     }
 
-    @Override
+    // @Override
     public Optional<Event> eventOfId(final EventId anId) {
         Objects.requireNonNull(anId, "id cannot be null");
         return this.eventJpaRepository.findById(UUID.fromString(anId.value()))
                 .map(EventEntity::toEvent);
     }
 
-    @Override
+    // @Override
     @Transactional
     public Event create(final Event Event) {
         return this.eventJpaRepository.save(EventEntity.of(Event))
                 .toEvent();
     }
 
-    @Override
+    // @Override
     @Transactional
     public Event update(Event Event) {
         return this.eventJpaRepository.save(EventEntity.of(Event))
                 .toEvent();
     }
 
-    @Override
+    // @Override
     public void deleteAll() {
         this.eventJpaRepository.deleteAll();
     }

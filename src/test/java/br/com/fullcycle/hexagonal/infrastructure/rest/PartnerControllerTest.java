@@ -15,7 +15,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import br.com.fullcycle.domain.repositories.PartnerRepository;
+import br.com.fullcycle.domain.partner.PartnerRepository;
 import br.com.fullcycle.application.partner.CreatePartnerUseCase;
 import br.com.fullcycle.application.partner.GetPartnerByIdUseCase;
 import br.com.fullcycle.hexagonal.infrastructure.dtos.NewPartnerDTO;

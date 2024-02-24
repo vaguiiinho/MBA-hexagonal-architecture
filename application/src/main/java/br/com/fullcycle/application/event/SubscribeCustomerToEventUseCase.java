@@ -6,11 +6,14 @@ import br.com.fullcycle.domain.customer.CustomerRepository;
 import br.com.fullcycle.domain.event.EventId;
 import br.com.fullcycle.domain.event.EventRepository;
 import br.com.fullcycle.domain.event.EventTicket;
+import br.com.fullcycle.domain.event.ticket.Ticket;
 import br.com.fullcycle.domain.event.ticket.TicketRepository;
 import br.com.fullcycle.domain.exceptions.ValidationException;
 
+
 import java.time.Instant;
 import java.util.Objects;
+
 public class SubscribeCustomerToEventUseCase
         extends UseCase<SubscribeCustomerToEventUseCase.Input, SubscribeCustomerToEventUseCase.Output> {
 

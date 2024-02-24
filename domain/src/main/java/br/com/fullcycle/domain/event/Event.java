@@ -1,6 +1,6 @@
 package br.com.fullcycle.domain.event;
 
-import br.com.fullcycle.domain.DomainEvent;
+import br.com.fullcycle.domain.event.ticket.Ticket;
 import br.com.fullcycle.domain.customer.CustomerId;
 import br.com.fullcycle.domain.exceptions.ValidationException;
 import br.com.fullcycle.domain.partner.Partner;

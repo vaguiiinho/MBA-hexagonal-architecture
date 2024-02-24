@@ -1,9 +1,12 @@
 package br.com.fullcycle.domain.customer;
 
+
 import br.com.fullcycle.domain.exceptions.ValidationException;
 import br.com.fullcycle.domain.person.Cpf;
 import br.com.fullcycle.domain.person.Email;
 import br.com.fullcycle.domain.person.Name;
+
+import java.util.Objects;
 
 public class Customer {
     private final CustomerId customerId;

@@ -7,6 +7,7 @@ import br.com.fullcycle.domain.customer.Customer;
 import br.com.fullcycle.domain.customer.CustomerId;
 import br.com.fullcycle.domain.event.Event;
 import br.com.fullcycle.domain.event.EventId;
+import br.com.fullcycle.domain.event.ticket.TicketStatus;
 import br.com.fullcycle.domain.exceptions.ValidationException;
 import br.com.fullcycle.domain.partner.Partner;
 import org.junit.jupiter.api.Assertions;

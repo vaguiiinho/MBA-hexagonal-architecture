@@ -3,6 +3,8 @@ package br.com.fullcycle.domain.event;
 import br.com.fullcycle.domain.customer.Customer;
 import br.com.fullcycle.domain.exceptions.ValidationException;
 import br.com.fullcycle.domain.partner.Partner;
+import br.com.fullcycle.domain.event.ticket.TicketStatus;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

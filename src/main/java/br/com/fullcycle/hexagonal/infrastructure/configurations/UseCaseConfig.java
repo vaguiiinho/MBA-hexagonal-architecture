@@ -5,10 +5,10 @@ import java.util.Objects;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import br.com.fullcycle.domain.repositories.CustomerRepository;
-import br.com.fullcycle.domain.repositories.EventRepository;
-import br.com.fullcycle.domain.repositories.PartnerRepository;
-import br.com.fullcycle.domain.repositories.TicketRepository;
+import br.com.fullcycle.domain.customer.CustomerRepository;
+import br.com.fullcycle.domain.event.EventRepository;
+import br.com.fullcycle.domain.partner.PartnerRepository;
+import br.com.fullcycle.domain.event.ticket.TicketRepository;
 import br.com.fullcycle.application.customer.CreateCustomerUseCase;
 import br.com.fullcycle.application.customer.GetCustomerByIdUseCase;
 import br.com.fullcycle.application.event.CreateEventUseCase;

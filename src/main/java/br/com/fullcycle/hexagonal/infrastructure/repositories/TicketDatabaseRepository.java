@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.fullcycle.domain.event.ticket.Ticket;
 import br.com.fullcycle.domain.event.ticket.TicketId;
-import br.com.fullcycle.domain.repositories.TicketRepository;
+import br.com.fullcycle.domain.event.ticket.TicketRepository;
 import br.com.fullcycle.hexagonal.infrastructure.jpa.entities.TicketEntity;
 import br.com.fullcycle.hexagonal.infrastructure.jpa.repositories.TicketJpaRepository;
 
@@ -24,28 +24,28 @@ public class TicketDatabaseRepository implements TicketRepository {
         this.ticketJpaRepository = Objects.requireNonNull(ticketJpaRepository);
     }
 
-    @Override
+    // @Override
     public Optional<Ticket> ticketOfId(final TicketId anId) {
         Objects.requireNonNull(anId, "id cannot be null");
         return this.ticketJpaRepository.findById(UUID.fromString(anId.value()))
                 .map(TicketEntity::toTicket);
     }
 
-    @Override
+    // @Override
     @Transactional
     public Ticket create(final Ticket ticket) {
         return this.ticketJpaRepository.save(TicketEntity.of(ticket))
                 .toTicket();
     }
 
-    @Override
+    // @Override
     @Transactional
     public Ticket update(Ticket ticket) {
         return this.ticketJpaRepository.save(TicketEntity.of(ticket))
                 .toTicket();
     }
 
-    @Override
+    // @Override
     public void deleteAll() {
         this.ticketJpaRepository.deleteAll();
     }

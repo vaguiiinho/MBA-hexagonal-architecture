@@ -9,9 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import br.com.fullcycle.hexagonal.IntegrationTest;
 import br.com.fullcycle.domain.partner.Partner;
 import br.com.fullcycle.domain.partner.PartnerId;
+import br.com.fullcycle.domain.partner.PartnerRepository;
 import br.com.fullcycle.domain.exceptions.ValidationException;
-import br.com.fullcycle.domain.repositories.EventRepository;
-import br.com.fullcycle.domain.repositories.PartnerRepository;
+import br.com.fullcycle.domain.event.EventRepository;
+import br.com.fullcycle.application.event.CreateEventUseCase;
 
 public class CreateEventUseCaseTestIT extends IntegrationTest {
 

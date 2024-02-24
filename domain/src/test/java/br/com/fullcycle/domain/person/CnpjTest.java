@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import br.com.fullcycle.hexagonal.application.exceptions.ValidationException;
+import br.com.fullcycle.domain.exceptions.ValidationException;
 
 public class CnpjTest {
      @Test

@@ -9,9 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.fullcycle.domain.customer.Customer;
 import br.com.fullcycle.domain.customer.CustomerId;
+import br.com.fullcycle.domain.customer.CustomerRepository;
 import br.com.fullcycle.domain.person.Cpf;
 import br.com.fullcycle.domain.person.Email;
-import br.com.fullcycle.domain.repositories.CustomerRepository;
 import br.com.fullcycle.hexagonal.infrastructure.jpa.entities.CustomerEntity;
 import br.com.fullcycle.hexagonal.infrastructure.jpa.repositories.CustomerJpaRepository;
 
@@ -25,42 +25,42 @@ public class CustomerDatabaseRepository implements CustomerRepository {
         this.customerJpaRepository = Objects.requireNonNull(customerJpaRepository);
     }
 
-    @Override
+    // @Override
     public Optional<Customer> customerOfId(final CustomerId anId) {
         Objects.requireNonNull(anId, "id cannot be null");
         return this.customerJpaRepository.findById(UUID.fromString(anId.value()))
                 .map(CustomerEntity::toCustomer);
     }
 
-    @Override
+    // @Override
     public Optional<Customer> customerOfCPF(final Cpf cpf) {
         Objects.requireNonNull(cpf, "Cpf cannot be null");
         return this.customerJpaRepository.findByCpf(cpf.value())
                 .map(CustomerEntity::toCustomer);
     }
 
-    @Override
+    // @Override
     public Optional<Customer> customerOfEmail(final Email email) {
         Objects.requireNonNull(email, "Email cannot be null");
         return this.customerJpaRepository.findByEmail(email.value())
                 .map(CustomerEntity::toCustomer);
     }
 
-    @Override
+    // @Override
     @Transactional
     public Customer create(final Customer customer) {
         return this.customerJpaRepository.save(CustomerEntity.of(customer))
                 .toCustomer();
     }
 
-    @Override
+    // @Override
     @Transactional
     public Customer update(Customer customer) {
         return this.customerJpaRepository.save(CustomerEntity.of(customer))
                 .toCustomer();
     }
 
-    @Override
+    // @Override
     public void deleteAll() {
         this.customerJpaRepository.deleteAll();
     }

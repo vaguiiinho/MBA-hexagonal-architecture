@@ -1,9 +1,8 @@
 package br.com.fullcycle.domain.event.ticket;
 
-import br.com.fullcycle.domain.DomainEvent;
+import br.com.fullcycle.domain.event.Event;
 import br.com.fullcycle.domain.customer.CustomerId;
 import br.com.fullcycle.domain.event.EventId;
-import br.com.fullcycle.domain.event.EventTicketId;
 import br.com.fullcycle.domain.exceptions.ValidationException;
 
 import java.time.Instant;

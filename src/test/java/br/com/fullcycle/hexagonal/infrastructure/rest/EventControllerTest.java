@@ -17,11 +17,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.com.fullcycle.domain.customer.Customer;
+import br.com.fullcycle.domain.customer.CustomerRepository;
 import br.com.fullcycle.domain.event.EventId;
+import br.com.fullcycle.domain.event.EventRepository;
 import br.com.fullcycle.domain.partner.Partner;
-import br.com.fullcycle.domain.repositories.CustomerRepository;
-import br.com.fullcycle.domain.repositories.EventRepository;
-import br.com.fullcycle.domain.repositories.PartnerRepository;
+import br.com.fullcycle.domain.partner.PartnerRepository;
 import br.com.fullcycle.application.event.CreateEventUseCase;
 import br.com.fullcycle.hexagonal.infrastructure.dtos.NewEventDTO;
 import br.com.fullcycle.hexagonal.infrastructure.dtos.SubscribeDTO;
