@@ -3,8 +3,6 @@ package br.com.fullcycle.domain.event;
 import br.com.fullcycle.domain.customer.Customer;
 import br.com.fullcycle.domain.exceptions.ValidationException;
 import br.com.fullcycle.domain.partner.Partner;
-import br.com.fullcycle.domain.event.ticket.TicketStatus;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -12,7 +10,8 @@ import org.junit.jupiter.api.Test;
 import java.time.format.DateTimeFormatter;
 
 public class EventTest {
-     @Test
+
+    @Test
     @DisplayName("Deve criar um evento")
     public void testCreateEvent() throws Exception {
         // given
@@ -92,7 +91,7 @@ public class EventTest {
         final var expectedPartnerId = aPartner.partnerId().value();
         final var expectedTickets = 1;
         final var expectedTicketOrder = 1;
-        final var expectedTicketStatus = TicketStatus.PENDING;
+        final var expectedDomainEvent = "event-ticket.reserved";
 
         final var actualEvent = Event.newEvent(expectedName, expectedDate, expectedTotalSpots, aPartner);
 
@@ -102,12 +101,10 @@ public class EventTest {
         final var actualTicket = actualEvent.reserveTicket(aCustomer.customerId());
 
         // then
-        Assertions.assertNotNull(actualTicket.ticketId());
-        Assertions.assertNotNull(actualTicket.reservedAt());
-        Assertions.assertNull(actualTicket.paidAt());
+        Assertions.assertNotNull(actualTicket.eventTicketId());
+        Assertions.assertNull(actualTicket.ticketId());
         Assertions.assertEquals(expectedEventId, actualTicket.eventId());
         Assertions.assertEquals(expectedCustomerId, actualTicket.customerId());
-        Assertions.assertEquals(expectedTicketStatus, actualTicket.status());
 
         Assertions.assertEquals(expectedDate, actualEvent.date().format(DateTimeFormatter.ISO_LOCAL_DATE));
         Assertions.assertEquals(expectedName, actualEvent.name().value());
@@ -120,6 +117,9 @@ public class EventTest {
         Assertions.assertEquals(expectedEventId, actualEventTicket.eventId());
         Assertions.assertEquals(expectedCustomerId, actualEventTicket.customerId());
         Assertions.assertEquals(actualTicket.ticketId(), actualEventTicket.ticketId());
+
+        final var actualDomainEvents = actualEvent.allDomainEvents().iterator().next();
+        Assertions.assertEquals(expectedDomainEvent, actualDomainEvents.type());
     }
 
     @Test

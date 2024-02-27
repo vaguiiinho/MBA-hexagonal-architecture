@@ -6,15 +6,20 @@ import br.com.fullcycle.domain.exceptions.ValidationException;
 
 public class EventTicket {
 
-    private final TicketId ticketId;
+    private final EventTicketId eventTicketId;
     private final EventId eventId;
     private final CustomerId customerId;
+    private TicketId ticketId;
     private int ordering;
 
-    public EventTicket(final TicketId ticketId, final EventId eventId, final CustomerId customerId,
+    public EventTicket(
+            final EventTicketId eventTicketId,
+            final EventId eventId,
+            final CustomerId customerId,
+            final TicketId ticketId,
             final Integer ordering) {
-        if (ticketId == null) {
-            throw new ValidationException("Invalid ticketId for EventTicket");
+        if (eventTicketId == null) {
+            throw new ValidationException("Invalid ticketId for eventTicketId");
         }
 
         if (eventId == null) {
@@ -25,10 +30,27 @@ public class EventTicket {
             throw new ValidationException("Invalid customerId for EventTicket");
         }
 
-        this.ticketId = ticketId;
+        this.eventTicketId = eventTicketId;
         this.eventId = eventId;
         this.customerId = customerId;
+        this.ticketId = ticketId;
         this.setOrdering(ordering);
+    }
+
+    public static EventTicket newEventTicket(
+            final EventId eventId,
+            final CustomerId customerId,
+            final Integer ordering) {
+        return new EventTicket(EventTicketId.unique(), eventId, customerId, null, ordering);
+    }
+
+    public EventTicketId eventTicketId() {
+        return eventTicketId;
+    }
+
+    public EventTicket associateTicket(final TicketId aTicketId) {
+        this.ticketId = aTicketId;
+        return this;
     }
 
     public TicketId ticketId() {
