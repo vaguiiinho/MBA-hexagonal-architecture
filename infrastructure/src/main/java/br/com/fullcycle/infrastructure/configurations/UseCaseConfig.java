@@ -11,23 +11,30 @@ import br.com.fullcycle.application.event.CreateEventUseCase;
 import br.com.fullcycle.application.event.SubscribeCustomerToEventUseCase;
 import br.com.fullcycle.application.partner.CreatePartnerUseCase;
 import br.com.fullcycle.application.partner.GetPartnerByIdUseCase;
+import br.com.fullcycle.application.ticket.CreateTicketForCustomerUseCase;
 import br.com.fullcycle.domain.customer.CustomerRepository;
 import br.com.fullcycle.domain.event.EventRepository;
+import br.com.fullcycle.domain.event.ticket.TicketRepository;
 import br.com.fullcycle.domain.partner.PartnerRepository;
 
 @Configuration
 public class UseCaseConfig {
 
-    private final CustomerRepository customerRepository;
+     private final CustomerRepository customerRepository;
     private final EventRepository eventRepository;
     private final PartnerRepository partnerRepository;
+    private final TicketRepository ticketRepository;
 
-    public UseCaseConfig(CustomerRepository customerRepository,
-            EventRepository eventRepository,
-            PartnerRepository partnerRepository) {
+    public UseCaseConfig(
+            final CustomerRepository customerRepository,
+            final EventRepository eventRepository,
+            final PartnerRepository partnerRepository,
+            final TicketRepository ticketRepository
+    ) {
         this.customerRepository = Objects.requireNonNull(customerRepository);
         this.eventRepository = Objects.requireNonNull(eventRepository);
         this.partnerRepository = Objects.requireNonNull(partnerRepository);
+        this.ticketRepository = Objects.requireNonNull(ticketRepository);
     }
 
     @Bean
@@ -58,5 +65,10 @@ public class UseCaseConfig {
     @Bean
     public SubscribeCustomerToEventUseCase getSubscribeCustomerToEvent() {
         return new SubscribeCustomerToEventUseCase(customerRepository, eventRepository);
+    }
+
+     @Bean
+    public CreateTicketForCustomerUseCase createTicketForCustomerUseCase() {
+        return new CreateTicketForCustomerUseCase(ticketRepository);
     }
 }
